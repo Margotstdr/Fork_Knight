@@ -17,3 +17,4 @@ Nous avons utilisé GitHub Copilot pour créer le fichier de test, afin de teste
 ## ⚠️ Bugs connus
 Aucun
 
+* Ce projet a été développé au sein d’une organisation GitHub distincte dans le cadre d’un projet évalué à l’EFREI. Comme ce dépôt n’apparaissait pas sur nos profils personnels, nous l’avons réimporté ici en un seul commit afin de le rendre visible sur GitHub. *
