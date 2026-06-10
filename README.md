@@ -1,20 +1,115 @@
-# Binôme & Informations de projet
+# Fork Knight — Système de Matchmaking en C
 
-- Margot STUDER
-- Armence RATSIMBAZAFY
+Projet réalisé par **Margot STUDER** et **Armence RATSIMBAZAFY** dans le cadre d'un projet évalué à l'EFREI.
 
-## 🎯 Objectifs et attendus
-- Implémenter un système de matchmaking.
-- Fournir l'enregistrement de l'historique des matchs et l'export des statistiques globales.
+---
 
+## Description
 
-## 👥 Répartition des tâches
-Chaque partie du projet a été séparé en deux afin que l'on puisse travailler de manière égale tout au long du projet. Donc nous avons toutes les deux modifié tous les fichiers différents.  
+Fork Knight est une application console en C qui simule un système de **matchmaking** pour un jeu compétitif. Elle permet de gérer une liste de joueurs, de les placer en file d'attente (simple ou par priorité), puis de former des matchs équilibrés pouvant aller jusqu'à 12 joueurs.
 
-## 🤖 Aide apportée par l'IA
-Nous avons utilisé GitHub Copilot pour créer le fichier de test, afin de tester toutes les fonctions avec toutes les possibilités possible. Aussi pour vérifier et optimiser nos fonctions.
+---
 
-## ⚠️ Bugs connus
-Aucun
+## Fonctionnalités
 
-* Ce projet a été développé au sein d’une organisation GitHub distincte dans le cadre d’un projet évalué à l’EFREI. Comme ce dépôt n’apparaissait pas sur nos profils personnels, nous l’avons réimporté ici en un seul commit afin de le rendre visible sur GitHub. *
+| Catégorie | Fonctionnalité |
+|---|---|
+| Joueurs | Charger / sauvegarder depuis un fichier |
+| Joueurs | Ajouter, retirer, rechercher, afficher |
+| Joueurs | Trier par `spicyIndex` |
+| File simple | Enqueue / dequeue, affichage |
+| File simple | Former un match (jusqu'à 12 joueurs) |
+| File de priorité | Insertion avec priorité, retrait du meilleur |
+| File de priorité | Affichage, match équilibré (12 meilleurs) |
+| Matchs | Simulation, affichage des résultats, mise à jour des stats |
+
+---
+
+## Structure du projet
+
+```
+Fork_Knight/
+├── src/
+│   ├── main.c            # Menu principal, boucle interactive
+│   ├── player.c          # Création, affichage, gestion des joueurs
+│   ├── array-utils.c     # Ajout, suppression, tri, recherche dans un tableau
+│   ├── list-utils.c      # File d'attente chaînée (enqueue/dequeue)
+│   ├── priority-queue.c  # File de priorité basée sur le spicyIndex
+│   └── match.c           # Création, simulation et affichage des matchs
+├── headers/
+│   ├── player.h
+│   ├── array-utils.h
+│   ├── list-utils.h
+│   ├── priority-queue.h
+│   └── match.h
+├── input/
+│   ├── player_10.txt     # 10 joueurs de test
+│   ├── players_50.txt    # 50 joueurs de test
+│   └── players_100.txt   # 100 joueurs de test
+└── CMakeLists.txt
+```
+
+---
+
+## Format des fichiers joueurs
+
+Chaque fichier commence par le nombre de joueurs, suivi d'une ligne par joueur :
+
+```
+<nombre_joueurs>
+<username> <level> <spicyIndex> <numGames> <numWins> <numLosses> <inQueue>
+```
+
+Exemple (`player_10.txt`) :
+```
+10
+ForkMaster 10 1200 5 3 2 0
+GoldenKnife 20 1800 15 12 3 0
+KnifeLord 15 1500 10 8 2 0
+...
+```
+
+---
+
+## Compilation et exécution
+
+**Prérequis :** CMake ≥ 3.16 et un compilateur C (gcc / clang).
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+./fork_knight
+```
+
+---
+
+## Modèle de joueur
+
+```c
+typedef struct Player {
+    char username[30];
+    int level;
+    int spicyIndex;   // Score de compétitivité utilisé pour la priorité
+    int numGames;
+    int numWins;
+    int numLosses;
+    int inQueue;      // 1 si le joueur est déjà dans une file
+} Player;
+```
+
+---
+
+## Répartition des tâches
+
+Le projet a été divisé en deux parties équilibrées, chaque membre ayant contribué à l'ensemble des fichiers source.
+
+---
+
+## Utilisation de l'IA
+
+GitHub Copilot a été utilisé pour générer les cas de tests et optimiser certaines fonctions.
+
+---
+
+> *Ce projet a été initialement développé au sein d'une organisation GitHub privée dans le cadre d'un projet EFREI, puis réimporté ici pour être visible sur les profils personnels.*
